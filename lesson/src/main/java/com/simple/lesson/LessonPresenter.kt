@@ -50,12 +50,28 @@ class LessonPresenter {
     }
 
     fun showPlayback() {
-        val playbackLessons = ArrayList<Lesson>()
-        for (lesson in lessons) {
-            if (lesson.getState() === Lesson.State.PLAYBACK) {
-                playbackLessons.add(lesson)
-            }
-        }
-        activity.showResult(playbackLessons)
+//        val playbackLessons = ArrayList<Lesson>()
+
+//        for (lesson in lessons) {
+//            if (lesson.state === Lesson.State.PLAYBACK) {
+//                playbackLessons.add(lesson)
+//            }
+//        }
+        /**
+         * 简化版for循环
+         */
+//        lessons.forEach {
+//            if (it.state == Lesson.State.PLAYBACK) {
+//                playbackLessons.add(it)
+//            }
+//        }
+
+        /**
+         * 通过集合自带的方法 filter 来遍历
+         * 通过过滤条件，返回一个新的集合结果
+         */
+        val list = lessons.filter { it.state == Lesson.State.PLAYBACK }
+
+        activity.showResult(list)
     }
 }

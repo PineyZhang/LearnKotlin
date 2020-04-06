@@ -16,12 +16,18 @@ class BaseApplication : Application() {
 
     companion object {
 
-        private lateinit var currentApplication: Context
+//        private lateinit var currentApplication: Context
+//
+//        // @JvmStatic Java 中调用静态函数
+//        fun currentApplication(): Context {
+//            return currentApplication
+//        }
 
-        // @JvmStatic Java 中调用静态函数
-        fun currentApplication(): Context {
-            return currentApplication
-        }
+        /**
+         * 简化代码，并隐藏setter方法
+         */
+        lateinit var currentApplication: Context
+            private set
 
     }
 

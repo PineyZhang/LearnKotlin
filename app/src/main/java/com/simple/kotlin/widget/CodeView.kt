@@ -14,28 +14,23 @@ import java.util.*
 
 /**
  * Created by zsg on 2020-04-05.
- * Desc:
+ * Desc: 主构造函数 调用 父类构造函数
  *
  */
-class CodeView : AppCompatTextView {
+class CodeView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : AppCompatTextView(context, attrs) {
 
-    constructor(context: Context) : this(context, null)
+//    constructor(context: Context) : this(context, null)
 
-    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
-        setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
-        gravity = Gravity.CENTER
-        setBackgroundColor(getContext().getColor(R.color.colorPrimary))
-        setTextColor(Color.WHITE)
-
-        paint.isAntiAlias = true
-        paint.style = Paint.Style.STROKE
-        paint.color = getContext().getColor(R.color.colorAccent)
-        paint.strokeWidth = dp2px(6f)
-
-        updateCode()
+    /**
+     * 从上往下开始执行
+     * 使用 apply 初始化对象
+     */
+    private val paint = Paint().apply {
+        isAntiAlias = true
+        style = Paint.Style.STROKE
+        color = getContext().getColor(R.color.colorAccent)
+        strokeWidth = 6f.dp2px() // 通过Float的扩展函数调用自定义dp2px
     }
-
-    private val paint = Paint()
 
     private val codeList = arrayOf(
             "kotlin",
@@ -47,6 +42,22 @@ class CodeView : AppCompatTextView {
             "retrofit",
             "tcp/ip"
     )
+
+    init {
+        setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
+        gravity = Gravity.CENTER
+        setBackgroundColor(getContext().getColor(R.color.colorPrimary))
+        setTextColor(Color.WHITE)
+
+//        isAntiAlias = true
+//        style = Paint.Style.STROKE
+//        paint.color = getContext().getColor(R.color.colorAccent)
+////        paint.strokeWidth = dp2px(6f)
+//        paint.strokeWidth = 6f.dp2px() // 通过Float的扩展函数调用自定义dp2px
+
+        updateCode()
+    }
+
 
     fun updateCode() {
         val random = Random().nextInt(codeList.size)
