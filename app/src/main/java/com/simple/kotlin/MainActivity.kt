@@ -57,21 +57,26 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val password: String? = et_password.text.toString()
         val code: String? = et_code.text.toString()
 
-        val user = User(username,password,code)
-        if(verify(user)){
-            CacheUtils.save(usernameKey,username)
-            CacheUtils.save(passwordKey,password)
-            startActivity(Intent(this,LessonActivity::class.java))
+        val user = User(username, password, code)
+        if (verify(user)) {
+            CacheUtils.save(usernameKey, username)
+            CacheUtils.save(passwordKey, password)
+            startActivity(Intent(this, LessonActivity::class.java))
         }
 
     }
 
     private fun verify(user: User): Boolean {
-        if (user.username == null || user.username!!.length < 4) {
+//        if (user.username == null || user.username!!.length < 4) {
+        /**
+         * 代替上面的判断，类似Java三元运算符的加强版
+         */
+        if (user.username?.length ?: 0 < 4) {
             Utils.toast("用户名不合法")
             return false
         }
-        if (user.password == null || user.password!!.length < 4) {
+//        if (user.password == null || user.password!!.length < 4) {
+        if (user.password?.length ?: 0 < 4) {
             Utils.toast("密码不合法")
             return false
         }

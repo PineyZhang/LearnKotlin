@@ -7,5 +7,9 @@ package com.simple.base
  */
 interface BaseView<T> {
 
-    fun getPresenter(): T
+//    fun getPresenter(): T
+    /**
+     * 简化成接口属性的方式
+     */
+    val presenter: T
 }

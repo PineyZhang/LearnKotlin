@@ -43,25 +43,43 @@ class LessonAdapter : RecyclerView.Adapter<LessonAdapter.LessonViewHolder>() {
         }
 
         internal fun onBind(lesson: Lesson) {
-            var date = lesson.getDate()
-            if (date == null) {
-                date = "日期待定"
-            }
-            setText(R.id.tv_date, date)
+//            var date = lesson.date
+//            if (date == null) {
+//                date = "日期待定"
+//            }
+            /**
+             * 简化判空代码
+             */
+            setText(R.id.tv_date, lesson.date?:"日期待定")
+            setText(R.id.tv_content, lesson.content)
 
-            setText(R.id.tv_content, lesson.getContent())
+//            val state = lesson.state
+//            if (state != null) {
+//                setText(R.id.tv_state, state.stateName())
+//                /**
+//                 * Kotlin 中 when、if、和try catch 都是有返回值的
+//                 */
+//                var colorRes = when (state) {
+//                    Lesson.State.PLAYBACK -> R.color.playback
+//                    Lesson.State.LIVE -> R.color.live
+//                    Lesson.State.WAIT -> R.color.wait
+//                }
+//                val backgroundColor = itemView.context.getColor(colorRes)
+//                getView<View>(R.id.tv_state)!!.setBackgroundColor(backgroundColor)
+//            }
 
-            val state = lesson.getState()
-            if (state != null) {
-                setText(R.id.tv_state, state.stateName())
-                var colorRes = R.color.playback
-                when (state) {
-                    Lesson.State.PLAYBACK -> {
-                        // 即使在 {} 中也是需要 break 的。
-                        colorRes = R.color.playback
-                    }
-                    Lesson.State.LIVE -> colorRes = R.color.live
-                    Lesson.State.WAIT -> colorRes = R.color.wait
+            /**
+             * 通过安全调用符，当lesson.state?不为空时，才会执行下面的代码
+             */
+            lesson.state?.let {
+                setText(R.id.tv_state, it.stateName())
+                /**
+                 * Kotlin 中 when、if、和try catch 都是有返回值的
+                 */
+                var colorRes = when (it) {
+                    Lesson.State.PLAYBACK -> R.color.playback
+                    Lesson.State.LIVE -> R.color.live
+                    Lesson.State.WAIT -> R.color.wait
                 }
                 val backgroundColor = itemView.context.getColor(colorRes)
                 getView<View>(R.id.tv_state)!!.setBackgroundColor(backgroundColor)

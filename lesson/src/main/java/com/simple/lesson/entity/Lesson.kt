@@ -3,9 +3,27 @@ package com.simple.lesson.entity
 /**
  * Created by zsg on 2020-04-05.
  * Desc: 枚举类
- *
+ * 被internal修饰的类，只能被模块类访问；外包访问不了
+ * plus版：
+ * 主构造上的参数加上var或val关键字，会自动生成成员变量
  */
-internal class Lesson {
+internal class Lesson constructor(var date: String?, var content: String?, var state: State?){
+
+    /**
+     * 表示 public 的属性，会自动生成 getter 和 setter 方法
+     */
+//    var date: String? = date
+//    var content: String? = content
+//    var state: State? = state
+
+    /**
+     * 使用主构造 + init 代码块初始化类
+     */
+//    init {
+//        this.date = date
+//        this.content = content
+//        this.state = state
+//    }
 
     enum class State {
         PLAYBACK {
@@ -25,41 +43,6 @@ internal class Lesson {
         };
 
         abstract fun stateName(): String
-    }
-
-    private var date: String? = null
-    private var content: String? = null
-    private var state: State? = null
-
-    constructor(date: String?, content: String?, state: State?) {
-        this.date = date
-        this.content = content
-        this.state = state
-    }
-
-
-    fun getState(): State? {
-        return state
-    }
-
-    fun setState(state: State?) {
-        this.state = state
-    }
-
-    fun getDate(): String? {
-        return date
-    }
-
-    fun setDate(date: String?) {
-        this.date = date
-    }
-
-    fun getContent(): String? {
-        return content
-    }
-
-    fun setContent(content: String?) {
-        this.content = content
     }
 
 }
